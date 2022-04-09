@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+    .pieces {
+        position: absolute;
+        top: 25px;
+        left: 25px;
+    }
+
+    .pieces > div {
+        /* outline: 2px solid green; */
+        display: flex;
+        flex-direction: row;
+    }
+
+    .pieces > div > div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        /* border-radius: 25px; */
+        /* outline: 1px solid black; */
+        flex-shrink: 0;
+    }
+
+    .pieces > div > div > span {
+        display: block;
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        /* outline: 1px solid red; */
+    }
+
+    .pieces > div > div > span:hover {
+        background-color: gray;
+    }
+
+    .board {
+        position: absolute;
+        top: 50px;
+        left: 50px;
+    }
+
+    .board > div {
+        /* outline: 1px solid blue; */
+        display: flex;
+        flex-direction: row;
+    }
+
+    .board > div > div {
+        width: 50px;
+        height: 50px;
+        outline: 1px solid black;
+        flex-shrink: 0;
+    }
+
+    /* body > div > div > div {
+        width: 50px;
+        height: 50px;
+        border-radius: 25px;
+        outline: 1px solid blue;
+    } */
+  
+
+</style>
+
+<body>
+
+    <div class="board">
+        <div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
+        </div>
+        <div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
+        </div>
+        <div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
+        </div>
+        <div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
+        </div>
+        <div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
+        </div>
+        <div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
+        </div>
+        <div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
+        </div>
+        <div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
+        </div>
+        <div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
+        </div>
+        <div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
+        </div>
+        <div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
+        </div>
+    </div>
+
+    <div class="pieces">
+        <div>
+            <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div>
+        </div>
+        <div>
+            <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div>
+        </div>
+        <div>
+            <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div>
+        </div>
+        <div>
+            <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div>
+        </div>
+        <div>
+            <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div>
+        </div>
+        <div>
+            <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div>
+        </div>
+        <div>
+            <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div>
+        </div>
+        <div>
+            <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div>
+        </div>
+        <div>
+            <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div>
+        </div>
+        <div>
+            <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div>
+        </div>
+        <div>
+            <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div>
+        </div>
+        <div>
+            <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div>
+        </div>
+    </div>
+    
+</body>
+
+<script>
+
+    const CONFIG = {
+        // playerCount: 3,
+        // colors: ['blue', 'green', 'red'],
+        playerCount: 2,
+        colors: ['blue', 'green'],
+        // playerCount: 1,
+        // colors: ['blue'],
+        rowLength: 12,
+        columnHeight: 12
+    }
+
+    const PIECE_STATUS = {
+        disabled: 0,
+        enabled: 1
+    }
+
+    class Game {
+        constructor() {
+            this.currentPlayerIdx = 0;
+            this.players;
+            this.board;
+        }
+
+        play(piece) {
+            if (piece.status === PIECE_STATUS.disabled) {
+                console.log(piece, piece.coords.x, piece.coords.y);
+                const player = this.players[this.currentPlayerIdx];
+                piece.play(player);
+                this.checkCapture(piece, player);
+                this.checkWin(piece, player, 0);
+                this.nextTurn();
+            } else {
+                console.log('existing piece');
+            }
+        }
+
+        checkCapture(piece, player) {
+        }
+
+        nextTurn() {
+            if (this.currentPlayerIdx === this.players.length - 1) {
+                this.currentPlayerIdx = 0;
+            } else {
+                this.currentPlayerIdx++;
+            }
+        }
+
+        checkWin(piece, player, inline) {
+            const x = piece.coords.x;
+            const y = piece.coords.y;
+
+            const horizontal = 1+ this.checkRight(x, y, player, 0) + this.checkLeft(x, y, player, 0);
+            const vertical = 1 + this.checkUp(x, y, player, 0) + this.checkDown(x, y, player, 0);
+            const diag1 = 1 + this.checkDiagLeftUp(x, y, player, 0) + this.checkDiagRightDown(x, y, player, 0);
+            const diag2 = 1 + this.checkDiagRightUp(x, y, player, 0) + this.checkDiagLeftDown(x, y, player, 0);
+
+            console.log('-----------')
+            console.log(vertical, horizontal, diag1, diag2);
+            console.log();
+            const inRow = Math.max(vertical, horizontal, diag1, diag2);
+            if (inRow >= 5) {
+                console.log(`${player.color} wins with ${inRow} in a row`);
+            }
+
+        }
+
+        checkUp(x, y, p, count) {
+            const newY = y - 1;
+            if (newY >= 0) {
+                const piece = this.board[newY][x];
+                if (piece.player === p) {
+                    return this.checkUp(x, newY, p, count + 1)
+                }
+            }
+            return count;
+        }
+
+        checkDown(x, y, p, count) {
+            const newY = y + 1;
+            if (newY <= CONFIG.columnHeight) {
+                const piece = this.board[newY][x];
+                if (piece.player === p) {
+                    return this.checkDown(x, newY, p, count + 1)
+                }
+            }
+            return count;
+        }
+
+        checkRight(x, y, p, count) {
+            const newX = x + 1;
+            if (newX <= CONFIG.rowLength) {
+                const piece = this.board[y][newX];
+                if (piece.player === p) {
+                    return this.checkRight(newX, y, p, count + 1)
+                }
+            }
+            return count;
+        }
+
+        checkLeft(x, y, p, count) {
+            const newX = x - 1;
+            if (newX >= 0) {
+                const piece = this.board[y][newX];
+                if (piece.player === p) {
+                    return this.checkLeft(newX, y, p, count + 1)
+                }
+            }
+            return count;
+        }
+
+        checkDiagRightUp(x, y, p, count) {
+            const newX = x + 1;
+            const newY = y - 1;
+            if (newX <= CONFIG.rowLength && newY >= 0) {
+                const piece = this.board[newY][newX];
+                if (piece.player === p) {
+                    return this.checkDiagRightUp(newX, newY, p, count + 1)
+                }
+            }
+            return count;
+        }
+
+        checkDiagLeftDown(x, y, p, count) {
+            const newX = x - 1;
+            const newY = y + 1;
+            if (newX >= 0 && newY <= CONFIG.columnHeight) {
+                const piece = this.board[newY][newX];
+                if (piece.player === p) {
+                    return this.checkDiagLeftDown(newX, newY, p, count + 1)
+                }
+            }
+            return count;
+        }
+
+        checkDiagLeftUp(x, y, p, count) {
+            const newX = x - 1;
+            const newY = y - 1;
+            if (newX >= 0 && newY >= 0) {
+                const piece = this.board[newY][newX];
+                if (piece.player === p) {
+                    return this.checkDiagLeftUp(newX, newY, p, count + 1)
+                }
+            }
+            return count;
+        }
+
+        checkDiagRightDown(x, y, p, count) {
+            const newX = x + 1;
+            const newY = y + 1;
+            if (newX <= CONFIG.rowLength && newY <= CONFIG.columnHeight) {
+                const piece = this.board[newY][newX];
+                if (piece.player === p) {
+                    return this.checkDiagRightDown(newX, newY, p, count + 1)
+                }
+            }
+            return count;
+        }
+
+        printBoard() {
+            console.log(this.board);
+        }
+
+    }
+
+    class Piece {
+        constructor(element, play, coords) {
+            this.element = element;
+            this.status = PIECE_STATUS.disabled;
+            this.element.onclick = () => play(this);
+            this.coords = coords;
+        }
+
+        play(player) {
+            this.element.style.backgroundColor = player.color;
+            this.player = player;
+            this.status = PIECE_STATUS.enabled;
+
+        }
+
+        clear() {
+            this.player = null;
+            this.status = PIECE_STATUS.disabled;
+        }
+    }
+
+    const game = new Game();
+    const getBoard = (config) => {
+        const nodeList = [...document.querySelectorAll('.pieces > div > div > span')];
+        const board = [];
+        for (let i = 0; i < config.columnHeight; i++) {
+            board.push([]);
+        }
+        for (let i = 0; i < nodeList.length; i++) {
+            const y = Math.floor(i/12||0);
+            const x = i - (12 * y);
+            const piece = new Piece(nodeList[i], game.play.bind(game), {x: x, y: y});
+            board[y].push(piece);
+        }
+        return board;
+    }
+
+    game.board = getBoard(CONFIG);
+    game.printBoard();
+
+    class Player {
+        constructor (color) {
+            this.color = color;
+            this.captures = 0;
+        }
+    }
+
+    const getPlayers = (config) => {
+        const players = [];
+        for (let i = 0; i < config.playerCount; i++) {
+            players.push(new Player(config.colors[i]));
+        }
+        return players;
+    };
+
+    game.players = getPlayers(CONFIG);
+    console.log(game.players);
+
+
+
+</script>
+</html>
