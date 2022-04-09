@@ -15,7 +15,6 @@
     }
 
     .pieces > div {
-        /* outline: 2px solid green; */
         display: flex;
         flex-direction: row;
     }
@@ -26,8 +25,6 @@
         align-items: center;
         width: 50px;
         height: 50px;
-        /* border-radius: 25px; */
-        /* outline: 1px solid black; */
         flex-shrink: 0;
     }
 
@@ -35,7 +32,6 @@
         width: 40px;
         height: 40px;
         border-radius: 20px;
-        /* outline: 1px solid red; */
     }
 
     .pieces > div > div > span:hover {
@@ -49,7 +45,6 @@
     }
 
     .board > div {
-        /* outline: 1px solid blue; */
         display: flex;
         flex-direction: row;
     }
@@ -68,12 +63,16 @@
         border-radius: 5px;
     }
 
+    #undo {
+        display: inline-block;
+    }
+
 </style>
 
 <body>
 
     <div>
-        <div>Current Player: <span id="currentPlayer" class="playerIcon"></span></div>
+        <div>Current Player: <span id="currentPlayer" class="playerIcon"></span><button id="undo">undo</button></div>
         <div class="playerCounts">
         </div>
     </div>
@@ -177,6 +176,7 @@
     class Game {
         constructor(players) {
             this.currentPlayerIdx = 0;
+            this.previousPiece;
             this.players = players;
             this.board;
             this.directions = {
@@ -191,7 +191,21 @@
             }
             this.currentPlayerElement = document.querySelector('#currentPlayer');
             this.playerCounts = document.querySelector('.playerCounts');
+            document.querySelector('#undo').onclick = this.undo.bind(this);
             this.updateControls();
+        }
+
+        undo() {
+            if (this.previousPiece) {
+                this.previousPiece.clear();
+                this.previousPiece = null;
+                if (this.currentPlayerIdx === 0) {
+                    this.currentPlayerIdx = this.players.length - 1;
+                } else {
+                    this.currentPlayerIdx--;
+                }
+                this.updateControls();
+            }
         }
 
         updateControls() {
@@ -214,9 +228,9 @@
 
         play(piece) {
             if (piece.status === PIECE_STATUS.disabled) {
-                console.log(piece, piece.coords.x, piece.coords.y);
                 const player = this.players[this.currentPlayerIdx];
                 piece.play(player);
+                this.previousPiece = piece;
                 this.checkCapture(piece, player);
                 this.checkWin(piece, player, 0);
                 this.nextTurn();
@@ -229,13 +243,11 @@
         checkCapture(piece, player) {
             for (const direction in this.directions) {
                 const a = this.checkDirection(piece.coords.x, piece.coords.y, player, this.directions[direction]);
-                // console.log(a, direction, this.directions[direction]);
                 if (a.length >= 3 && a[0].player !== player && a[0].player === a[1].player && a[2].player === player) {
                     player.captures++;
-                    // console.log(player);
-                    // console.log(`${player.color} captured ${a[0].player.color}`);
                     a[0].clear();
                     a[1].clear();
+                    this.previousPiece = null;
                 }
             }
         }
@@ -425,8 +437,8 @@
             board.push([]);
         }
         for (let i = 0; i < nodeList.length; i++) {
-            const y = Math.floor(i/12||0);
-            const x = i - (12 * y);
+            const y = Math.floor(i/CONFIG.rowLength||0);
+            const x = i - (CONFIG.rowLength * y);
             const piece = new Piece(nodeList[i], game.play.bind(game), {x: x, y: y});
             board[y].push(piece);
         }
