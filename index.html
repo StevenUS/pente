@@ -32,7 +32,6 @@
     }
 
     .pieces > div > div > span {
-        display: block;
         width: 40px;
         height: 40px;
         border-radius: 20px;
@@ -62,17 +61,23 @@
         flex-shrink: 0;
     }
 
-    /* body > div > div > div {
-        width: 50px;
-        height: 50px;
-        border-radius: 25px;
-        outline: 1px solid blue;
-    } */
-  
+    .playerIcon {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 5px;
+    }
 
 </style>
 
 <body>
+
+    <div>
+        <div>Current Player: <span id="currentPlayer" class="playerIcon"></span></div>
+        <div class="playerCounts">
+        </div>
+    </div>
+
 
     <div class="board">
         <div>
@@ -154,10 +159,10 @@
 <script>
 
     const CONFIG = {
-        // playerCount: 3,
-        // colors: ['blue', 'green', 'red'],
-        playerCount: 2,
-        colors: ['blue', 'green'],
+        playerCount: 3,
+        colors: ['blue', 'green', 'red'],
+        // playerCount: 2,
+        // colors: ['blue', 'green'],
         // playerCount: 1,
         // colors: ['blue'],
         rowLength: 12,
@@ -170,10 +175,41 @@
     }
 
     class Game {
-        constructor() {
+        constructor(players) {
             this.currentPlayerIdx = 0;
-            this.players;
+            this.players = players;
             this.board;
+            this.directions = {
+                up: {x: 0, y: -1},
+                down: {x: 0, y: 1},
+                left: {x: -1, y: 0},
+                right: {x: 1, y: 0},
+                rightUp: {x: 1, y: -1},
+                leftDown: {x: -1, y: 1},
+                leftUp: {x: -1, y: -1},
+                rightDown: {x: 1, y: 1},
+            }
+            this.currentPlayerElement = document.querySelector('#currentPlayer');
+            this.playerCounts = document.querySelector('.playerCounts');
+            this.updateControls();
+        }
+
+        updateControls() {
+            this.currentPlayerElement.style.backgroundColor = this.players[this.currentPlayerIdx].color;
+            this.createControls();
+        }
+
+        createControls() {
+            this.playerCounts.innerHTML = '';
+            for (const player of this.players) {
+                const span = document.createElement('span');
+                span.className += 'playerIcon';
+                span.style.backgroundColor = player.color;
+                const count = document.createElement('span');
+                count.appendChild(document.createTextNode(`:${player.captures} `));
+                this.playerCounts.appendChild(span);
+                this.playerCounts.appendChild(count);
+            }
         }
 
         play(piece) {
@@ -184,12 +220,37 @@
                 this.checkCapture(piece, player);
                 this.checkWin(piece, player, 0);
                 this.nextTurn();
+                this.updateControls();
             } else {
                 console.log('existing piece');
             }
         }
 
         checkCapture(piece, player) {
+            for (const direction in this.directions) {
+                const a = this.checkDirection(piece.coords.x, piece.coords.y, player, this.directions[direction]);
+                // console.log(a, direction, this.directions[direction]);
+                if (a.length >= 3 && a[0].player !== player && a[0].player === a[1].player && a[2].player === player) {
+                    player.captures++;
+                    // console.log(player);
+                    // console.log(`${player.color} captured ${a[0].player.color}`);
+                    a[0].clear();
+                    a[1].clear();
+                }
+            }
+        }
+
+        checkDirection(x, y, player, direction, pieces = []) {
+            const newY = y + direction.y;
+            const newX = x + direction.x;
+            if (newY >= 0 && newY < CONFIG.columnHeight && newX >= 0 && newX < CONFIG.rowLength) {
+                const piece = this.board[newY][newX];
+                if (piece.player) {
+                    pieces.push(piece)
+                    return this.checkDirection(newX, newY, player, direction, pieces)
+                }
+            }
+            return pieces;
         }
 
         nextTurn() {
@@ -209,9 +270,6 @@
             const diag1 = 1 + this.checkDiagLeftUp(x, y, player, 0) + this.checkDiagRightDown(x, y, player, 0);
             const diag2 = 1 + this.checkDiagRightUp(x, y, player, 0) + this.checkDiagLeftDown(x, y, player, 0);
 
-            console.log('-----------')
-            console.log(vertical, horizontal, diag1, diag2);
-            console.log();
             const inRow = Math.max(vertical, horizontal, diag1, diag2);
             if (inRow >= 5) {
                 console.log(`${player.color} wins with ${inRow} in a row`);
@@ -232,7 +290,7 @@
 
         checkDown(x, y, p, count) {
             const newY = y + 1;
-            if (newY <= CONFIG.columnHeight) {
+            if (newY < CONFIG.columnHeight) {
                 const piece = this.board[newY][x];
                 if (piece.player === p) {
                     return this.checkDown(x, newY, p, count + 1)
@@ -243,7 +301,7 @@
 
         checkRight(x, y, p, count) {
             const newX = x + 1;
-            if (newX <= CONFIG.rowLength) {
+            if (newX < CONFIG.rowLength) {
                 const piece = this.board[y][newX];
                 if (piece.player === p) {
                     return this.checkRight(newX, y, p, count + 1)
@@ -266,7 +324,7 @@
         checkDiagRightUp(x, y, p, count) {
             const newX = x + 1;
             const newY = y - 1;
-            if (newX <= CONFIG.rowLength && newY >= 0) {
+            if (newX < CONFIG.rowLength && newY >= 0) {
                 const piece = this.board[newY][newX];
                 if (piece.player === p) {
                     return this.checkDiagRightUp(newX, newY, p, count + 1)
@@ -278,7 +336,7 @@
         checkDiagLeftDown(x, y, p, count) {
             const newX = x - 1;
             const newY = y + 1;
-            if (newX >= 0 && newY <= CONFIG.columnHeight) {
+            if (newX >= 0 && newY < CONFIG.columnHeight) {
                 const piece = this.board[newY][newX];
                 if (piece.player === p) {
                     return this.checkDiagLeftDown(newX, newY, p, count + 1)
@@ -302,7 +360,7 @@
         checkDiagRightDown(x, y, p, count) {
             const newX = x + 1;
             const newY = y + 1;
-            if (newX <= CONFIG.rowLength && newY <= CONFIG.columnHeight) {
+            if (newX < CONFIG.rowLength && newY < CONFIG.columnHeight) {
                 const piece = this.board[newY][newX];
                 if (piece.player === p) {
                     return this.checkDiagRightDown(newX, newY, p, count + 1)
@@ -326,19 +384,40 @@
         }
 
         play(player) {
-            this.element.style.backgroundColor = player.color;
+            this.setColor(player.color);
             this.player = player;
             this.status = PIECE_STATUS.enabled;
 
         }
 
+        setColor(color) {
+            this.element.style.backgroundColor = color;
+        }
+
         clear() {
             this.player = null;
             this.status = PIECE_STATUS.disabled;
+            this.setColor(null);
         }
     }
 
-    const game = new Game();
+
+    class Player {
+        constructor (color) {
+            this.color = color;
+            this.captures = 0;
+        }
+    }
+
+    const getPlayers = (config) => {
+        const players = [];
+        for (let i = 0; i < config.playerCount; i++) {
+            players.push(new Player(config.colors[i]));
+        }
+        return players;
+    };
+    const game = new Game(getPlayers(CONFIG));
+
     const getBoard = (config) => {
         const nodeList = [...document.querySelectorAll('.pieces > div > div > span')];
         const board = [];
@@ -356,25 +435,6 @@
 
     game.board = getBoard(CONFIG);
     game.printBoard();
-
-    class Player {
-        constructor (color) {
-            this.color = color;
-            this.captures = 0;
-        }
-    }
-
-    const getPlayers = (config) => {
-        const players = [];
-        for (let i = 0; i < config.playerCount; i++) {
-            players.push(new Player(config.colors[i]));
-        }
-        return players;
-    };
-
-    game.players = getPlayers(CONFIG);
-    console.log(game.players);
-
 
 
 </script>
