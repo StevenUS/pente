@@ -7,11 +7,33 @@
     <title>Document</title>
 </head>
 <style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 15px;
+    }
+
+    .board {
+        position: absolute;
+        top: 60px;
+        left: 130px;
+    }
+
+    .board > div {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .board > div > div {
+        width: 50px;
+        height: 50px;
+        outline: 1px solid black;
+        flex-shrink: 0;
+    }
 
     .pieces {
         position: absolute;
-        top: 25px;
-        left: 25px;
+        top: 35px;
+        left: 105px;
     }
 
     .pieces > div {
@@ -38,24 +60,6 @@
         background-color: gray;
     }
 
-    .board {
-        position: absolute;
-        top: 50px;
-        left: 50px;
-    }
-
-    .board > div {
-        display: flex;
-        flex-direction: row;
-    }
-
-    .board > div > div {
-        width: 50px;
-        height: 50px;
-        outline: 1px solid black;
-        flex-shrink: 0;
-    }
-
     .playerIcon {
         display: inline-block;
         width: 10px;
@@ -65,6 +69,9 @@
 
     #undo {
         display: inline-block;
+        width: 60px;
+        height: 60px;
+        margin: 10px;
     }
 
 </style>
@@ -72,85 +79,89 @@
 <body>
 
     <div>
-        <div>Current Player: <span id="currentPlayer" class="playerIcon"></span><button id="undo">undo</button></div>
+        <div>Current Player: <span id="currentPlayer" class="playerIcon"></span></div>
         <div class="playerCounts">
         </div>
     </div>
-
+    <button id="undo">undo</button>
 
     <div class="board">
         <div>
-            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
         </div>
         <div>
-            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
         </div>
         <div>
-            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
         </div>
         <div>
-            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
         </div>
         <div>
-            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
         </div>
         <div>
-            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
         </div>
         <div>
-            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
         </div>
         <div>
-            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
         </div>
         <div>
-            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
         </div>
         <div>
-            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
         </div>
         <div>
-            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+        </div>
+        <div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+        </div>
+        <div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+        </div>
+        <div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+        </div>
+        <div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+        </div>
+        <div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+        </div>
+        <div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+        </div>
+        <div>
+            <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div> <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
         </div>
     </div>
 
     <div class="pieces">
-        <div>
-            <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div>
-        </div>
-        <div>
-            <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div>
-        </div>
-        <div>
-            <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div>
-        </div>
-        <div>
-            <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div>
-        </div>
-        <div>
-            <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div>
-        </div>
-        <div>
-            <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div>
-        </div>
-        <div>
-            <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div>
-        </div>
-        <div>
-            <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div>
-        </div>
-        <div>
-            <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div>
-        </div>
-        <div>
-            <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div>
-        </div>
-        <div>
-            <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div>
-        </div>
-        <div>
-            <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div>
-        </div>
+        <div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div></div>
+        <div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div></div>
+        <div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div></div>
+        <div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div></div>
+        <div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div></div>
+        <div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div></div>
+        <div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div></div>
+        <div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div></div>
+        <div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div></div>
+        <div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div></div>
+        <div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div></div>
+        <div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div></div>
+        <div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div></div>
+        <div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div></div>
+        <div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div></div>
+        <div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div></div>
+        <div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div></div>
+        <div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div></div>
+        <div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div> <div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div><div><span></span></div></div>
     </div>
     
 </body>
@@ -158,14 +169,16 @@
 <script>
 
     const CONFIG = {
-        playerCount: 3,
-        colors: ['blue', 'green', 'red'],
-        // playerCount: 2,
-        // colors: ['blue', 'green'],
+        // playerCount: 4,
+        // colors: ['blue', 'green', 'red', 'orange'],
+        // playerCount: 3,
+        // colors: ['blue', 'green', 'red'],
+        playerCount: 2,
+        colors: ['blue', 'green'],
         // playerCount: 1,
         // colors: ['blue'],
-        rowLength: 12,
-        columnHeight: 12
+        rowLength: 19,
+        columnHeight:19 
     }
 
     const PIECE_STATUS = {
