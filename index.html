@@ -10,6 +10,7 @@
     body {
         font-family: Arial, Helvetica, sans-serif;
         font-size: 15px;
+        background-color: darkslategray;
     }
 
     .board {
@@ -201,7 +202,7 @@
                 leftDown: {x: -1, y: 1},
                 leftUp: {x: -1, y: -1},
                 rightDown: {x: 1, y: 1},
-            }
+            };
             this.currentPlayerElement = document.querySelector('#currentPlayer');
             this.playerCounts = document.querySelector('.playerCounts');
             document.querySelector('#undo').onclick = this.undo.bind(this);
@@ -244,24 +245,11 @@
                 const player = this.players[this.currentPlayerIdx];
                 piece.play(player);
                 this.previousPiece = piece;
-                this.checkCapture(piece, player);
                 this.checkWin(piece, player, 0);
                 this.nextTurn();
                 this.updateControls();
             } else {
                 console.log('existing piece');
-            }
-        }
-
-        checkCapture(piece, player) {
-            for (const direction in this.directions) {
-                const a = this.checkDirection(piece.coords.x, piece.coords.y, player, this.directions[direction]);
-                if (a.length >= 3 && a[0].player !== player && a[0].player === a[1].player && a[2].player === player) {
-                    player.captures++;
-                    a[0].clear();
-                    a[1].clear();
-                    this.previousPiece = null;
-                }
             }
         }
 
@@ -286,112 +274,47 @@
             }
         }
 
-        checkWin(piece, player, inline) {
-            const x = piece.coords.x;
-            const y = piece.coords.y;
+        getConsecutiveCount(row, player) {
+            let count = 0;
+            for (const piece of row) {
+                if (piece.player === player) {
+                    count++;
+                } else {
+                    break;
+                }
+            }
+            return count;
+        };
 
-            const horizontal = 1+ this.checkRight(x, y, player, 0) + this.checkLeft(x, y, player, 0);
-            const vertical = 1 + this.checkUp(x, y, player, 0) + this.checkDown(x, y, player, 0);
-            const diag1 = 1 + this.checkDiagLeftUp(x, y, player, 0) + this.checkDiagRightDown(x, y, player, 0);
-            const diag2 = 1 + this.checkDiagRightUp(x, y, player, 0) + this.checkDiagLeftDown(x, y, player, 0);
+        findCapture(a, player) {
+            if (a.length >= 3 && a[0].player !== player && a[0].player === a[1].player && a[2].player === player) {
+                player.captures++;
+                a[0].clear();
+                a[1].clear();
+                this.previousPiece = null;
+            }
+        }
+
+        checkWin(piece, player) {
+
+            const consecutivePiecesCounts = {};
+
+            for (const direction in this.directions) {
+                const a = this.checkDirection(piece.coords.x, piece.coords.y, player, this.directions[direction]);
+                this.findCapture(a, player);
+                consecutivePiecesCounts[direction] = this.getConsecutiveCount(a, player);
+            }
+
+            const vertical = 1 + consecutivePiecesCounts.up + consecutivePiecesCounts.down;
+            const horizontal = 1 + consecutivePiecesCounts.left + consecutivePiecesCounts.right;
+            const diag1 = 1 + consecutivePiecesCounts.rightUp + consecutivePiecesCounts.leftDown;
+            const diag2 = 1 + consecutivePiecesCounts.leftUp + consecutivePiecesCounts.rightDown;
 
             const inRow = Math.max(vertical, horizontal, diag1, diag2);
             if (inRow >= 5) {
                 console.log(`${player.color} wins with ${inRow} in a row`);
             }
 
-        }
-
-        checkUp(x, y, p, count) {
-            const newY = y - 1;
-            if (newY >= 0) {
-                const piece = this.board[newY][x];
-                if (piece.player === p) {
-                    return this.checkUp(x, newY, p, count + 1)
-                }
-            }
-            return count;
-        }
-
-        checkDown(x, y, p, count) {
-            const newY = y + 1;
-            if (newY < CONFIG.columnHeight) {
-                const piece = this.board[newY][x];
-                if (piece.player === p) {
-                    return this.checkDown(x, newY, p, count + 1)
-                }
-            }
-            return count;
-        }
-
-        checkRight(x, y, p, count) {
-            const newX = x + 1;
-            if (newX < CONFIG.rowLength) {
-                const piece = this.board[y][newX];
-                if (piece.player === p) {
-                    return this.checkRight(newX, y, p, count + 1)
-                }
-            }
-            return count;
-        }
-
-        checkLeft(x, y, p, count) {
-            const newX = x - 1;
-            if (newX >= 0) {
-                const piece = this.board[y][newX];
-                if (piece.player === p) {
-                    return this.checkLeft(newX, y, p, count + 1)
-                }
-            }
-            return count;
-        }
-
-        checkDiagRightUp(x, y, p, count) {
-            const newX = x + 1;
-            const newY = y - 1;
-            if (newX < CONFIG.rowLength && newY >= 0) {
-                const piece = this.board[newY][newX];
-                if (piece.player === p) {
-                    return this.checkDiagRightUp(newX, newY, p, count + 1)
-                }
-            }
-            return count;
-        }
-
-        checkDiagLeftDown(x, y, p, count) {
-            const newX = x - 1;
-            const newY = y + 1;
-            if (newX >= 0 && newY < CONFIG.columnHeight) {
-                const piece = this.board[newY][newX];
-                if (piece.player === p) {
-                    return this.checkDiagLeftDown(newX, newY, p, count + 1)
-                }
-            }
-            return count;
-        }
-
-        checkDiagLeftUp(x, y, p, count) {
-            const newX = x - 1;
-            const newY = y - 1;
-            if (newX >= 0 && newY >= 0) {
-                const piece = this.board[newY][newX];
-                if (piece.player === p) {
-                    return this.checkDiagLeftUp(newX, newY, p, count + 1)
-                }
-            }
-            return count;
-        }
-
-        checkDiagRightDown(x, y, p, count) {
-            const newX = x + 1;
-            const newY = y + 1;
-            if (newX < CONFIG.rowLength && newY < CONFIG.columnHeight) {
-                const piece = this.board[newY][newX];
-                if (piece.player === p) {
-                    return this.checkDiagRightDown(newX, newY, p, count + 1)
-                }
-            }
-            return count;
         }
 
         printBoard() {
