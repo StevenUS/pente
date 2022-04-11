@@ -10,14 +10,16 @@
 <style>
     body {
         font-family: Arial, Helvetica, sans-serif;
-        font-size: 15px;
-        background-color: darkslategray;
+        color: darkgray;
+        font-size: 18px;
+        background-color: #232626;
     }
 
     .board {
         position: absolute;
         top: 60px;
         left: 130px;
+        outline: 1px solid #6b6b6b;
     }
 
     .board>div {
@@ -28,7 +30,7 @@
     .board>div>div {
         width: 50px;
         height: 50px;
-        outline: 1px solid black;
+        outline: 1px solid #6b6b6b;
         flex-shrink: 0;
     }
 
@@ -64,15 +66,15 @@
 
     .playerIcon {
         display: inline-block;
-        width: 12px;
-        height: 12px;
-        border-radius: 6px;
+        width: 15px;
+        height: 15px;
+        border-radius: 7.5px;
     }
 
     #undo {
         display: inline-block;
         width: 60px;
-        height: 60px;
+        height: 50px;
         margin: 10px;
         border-radius: 10px;
         background: darkgray;
